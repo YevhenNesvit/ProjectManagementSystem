@@ -1,6 +1,6 @@
 package repository;
 
-import config.DatabaseManagerConnector;
+import config.RepositoryConnection;
 import converter.ProjectConverter;
 import model.dao.ProjectDao;
 import model.dto.ProjectDto;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectRepository {
-    private final DatabaseManagerConnector connector;
+    RepositoryConnection repositoryConnection = new RepositoryConnection();
     private static final String PROJECTS_LIST = "SELECT p.creation_date, p.name, count(d.developer_id) as count, p.project_id," +
             "p.company_id, p.customer_id, p.cost " +
             "FROM projects p " +
@@ -24,13 +24,9 @@ public class ProjectRepository {
 //            "creation_date) VALUES (?, ?, ?, ?, ?, ?)";
     ProjectConverter projectConverter = new ProjectConverter();
 
-    public ProjectRepository(DatabaseManagerConnector connector) {
-        this.connector = connector;
-    }
-
     public List<ProjectDto> projectsList() throws SQLException {
         ResultSet resultSet = null;
-        try (Connection connection = connector.getConnection()) {
+        try (Connection connection = repositoryConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(PROJECTS_LIST);
 
             resultSet = statement.executeQuery();

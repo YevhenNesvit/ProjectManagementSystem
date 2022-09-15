@@ -32,6 +32,7 @@ public class Console implements View {
         commands.add(new Exit(view));
         commands.add(new GetSalary(view));
         commands.add(new GetDevelopers(view));
+        commands.add(new GetProjects(view));
 
         return commands;
     }

@@ -20,6 +20,7 @@ public class Help implements Command {
         view.write(String.format("Enter %s to see all commands", Help.HELP));
         view.write(String.format("Enter %s to view salary by project", GetSalary.GET_SALARY));
         view.write(String.format("Enter %s to view developers by project", GetDevelopers.GET_DEVELOPERS));
+        view.write(String.format("Enter %s to view projects list", GetProjects.GET_PROJECTS));
         view.write(String.format("Enter %s to exit program", Exit.EXIT));
     }
 }
