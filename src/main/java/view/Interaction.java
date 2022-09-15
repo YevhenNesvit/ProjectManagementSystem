@@ -1,6 +1,7 @@
 package view;
 
 import command.Command;
+import exceptions.ExitException;
 
 import java.util.List;
 
@@ -15,19 +16,23 @@ public class Interaction {
 
     public void run() {
         view.write("Hello, please enter help to see all command");
-        while (true) {
-            String input = view.read();
-            boolean isInputCorrect = false;
-            for (Command command : commands) {
-                if (command.canExecute(input)) {
+        try {
+            while (true) {
+                String input = view.read();
+                boolean isInputCorrect = false;
+                for (Command command : commands) {
+                    if (command.canExecute(input)) {
 
-                    command.execute();
-                    isInputCorrect = true;
+                        command.execute();
+                        isInputCorrect = true;
+                    }
+                }
+                if (!isInputCorrect) {
+                    view.write("Command not found. Please enter help to see all commands");
                 }
             }
-            if (!isInputCorrect) {
-                view.write("Command not found. Please enter help to see all commands");
-            }
+        } catch (ExitException e) {
+            e.getStackTrace();
         }
     }
 }

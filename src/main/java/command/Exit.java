@@ -1,5 +1,6 @@
 package command;
 
+import exceptions.ExitException;
 import view.View;
 
 public class Exit implements Command {
@@ -20,6 +21,6 @@ public class Exit implements Command {
     @Override
     public void execute() {
         view.write(BYE_MESSAGE);
-        throw new RuntimeException();
+        throw new ExitException();
     }
 }
