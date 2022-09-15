@@ -35,7 +35,7 @@ public class GetSalary implements Command {
             }
         }
         try {
-            view.write("For project with id " + id + " Salary is " + developerRepository.salaryByProjectId(id));
+            view.write("For project with id " + id + " salary is " + developerRepository.salaryByProjectId(id));
         } catch (SQLException e) {
             e.getStackTrace();
         }

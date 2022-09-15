@@ -1,7 +1,7 @@
 package converter;
 
-import dao.DeveloperDao;
-import dto.DeveloperDto;
+import model.dao.DeveloperDao;
+import model.dto.DeveloperDto;
 
 import java.util.ArrayList;
 import java.util.List;

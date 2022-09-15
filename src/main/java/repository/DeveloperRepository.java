@@ -2,8 +2,8 @@ package repository;
 
 import config.DatabaseManagerConnector;
 import converter.DeveloperConverter;
-import dao.DeveloperDao;
-import dto.DeveloperDto;
+import model.dao.DeveloperDao;
+import model.dto.DeveloperDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

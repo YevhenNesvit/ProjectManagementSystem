@@ -1,7 +1,6 @@
 package converter;
-
-import dao.ProjectDao;
-import dto.ProjectDto;
+import model.dao.ProjectDao;
+import model.dto.ProjectDto;
 
 import java.util.ArrayList;
 import java.util.List;
