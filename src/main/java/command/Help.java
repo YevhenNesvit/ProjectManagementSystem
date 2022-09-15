@@ -18,8 +18,8 @@ public class Help implements Command {
     @Override
     public void execute() {
         view.write(String.format("Enter %s to see all commands", Help.HELP));
+        view.write(String.format("Enter %s to view salary by project", GetSalary.GET_SALARY));
+        view.write(String.format("Enter %s to view developers by project", GetDevelopers.GET_DEVELOPERS));
         view.write(String.format("Enter %s to exit program", Exit.EXIT));
-        view.write(String.format("Enter %s command to view salary by project", GetSalary.GET_SALARY));
-//        view.write(String.format("Enter %s command to add journal to the library", "add journal"));
     }
 }

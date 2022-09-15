@@ -5,18 +5,18 @@ import view.View;
 
 import java.sql.SQLException;
 
-public class GetSalary implements Command {
-    public static final String GET_SALARY = "get salary";
+public class GetDevelopers implements Command {
+    public static final String GET_DEVELOPERS = "get developers";
     private final View view;
     DeveloperRepository developerRepository = new DeveloperRepository();
 
-    public GetSalary(View view) {
+    public GetDevelopers(View view) {
         this.view = view;
     }
 
     @Override
     public boolean canExecute(String input) {
-        return input.equals(GET_SALARY);
+        return input.equals(GET_DEVELOPERS);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class GetSalary implements Command {
             }
         }
         try {
-            view.write("For project with id " + id + " salary is " + developerRepository.salaryByProjectId(id));
+            view.write("For project with id " + id + " list of developers is:\n" + developerRepository.developersByProjectId(id));
         } catch (SQLException e) {
             e.getStackTrace();
         }

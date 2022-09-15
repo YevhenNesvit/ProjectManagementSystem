@@ -1,6 +1,6 @@
 package repository;
 
-import config.DatabaseManagerConnector;
+import config.RepositoryConnection;
 import converter.DeveloperConverter;
 import model.dao.DeveloperDao;
 import model.dto.DeveloperDto;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class DeveloperRepository {
-    private final DatabaseManagerConnector connector;
+    RepositoryConnection repositoryConnection = new RepositoryConnection();
     private static final String SALARY_BY_PROJECT_ID = "SELECT SUM(d.salary) as salary " +
             "FROM developers d JOIN developers_per_projects dpp ON dpp.developer_id = d.developer_id " +
             "JOIN projects p ON p.project_id = dpp.project_id WHERE p.project_id = ?";
@@ -38,13 +38,9 @@ public class DeveloperRepository {
 //            "age, company_id, salary) VALUES (?, ?, ?, ?, ?, ?, ?)";
     DeveloperConverter developerConverter = new DeveloperConverter();
 
-    public DeveloperRepository(DatabaseManagerConnector connector) {
-        this.connector = connector;
-    }
-
     public Integer salaryByProjectId(Integer id) throws SQLException {
         ResultSet resultSet = null;
-        try (Connection connection = connector.getConnection()) {
+        try (Connection connection = repositoryConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(SALARY_BY_PROJECT_ID);
             statement.setInt(1, id);
 
@@ -62,7 +58,7 @@ public class DeveloperRepository {
 
     public List<DeveloperDto> developersByProjectId(Integer id) throws SQLException {
         ResultSet resultSet = null;
-        try (Connection connection = connector.getConnection()) {
+        try (Connection connection = repositoryConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(DEVELOPERS_BY_PROJECT_ID);
             statement.setInt(1, id);
 
@@ -86,7 +82,7 @@ public class DeveloperRepository {
 
     public List<DeveloperDto> developersBySkillName(String name) throws SQLException {
         ResultSet resultSet = null;
-        try (Connection connection = connector.getConnection()) {
+        try (Connection connection = repositoryConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(DEVELOPERS_BY_SKILL_NAME);
             statement.setString(1, name);
 
@@ -110,7 +106,7 @@ public class DeveloperRepository {
 
     public List<DeveloperDto> developersBySkillLevel(String level) throws SQLException {
         ResultSet resultSet = null;
-        try (Connection connection = connector.getConnection()) {
+        try (Connection connection = repositoryConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(DEVELOPERS_BY_SKILL_LEVEL);
             statement.setString(1, level);
 
