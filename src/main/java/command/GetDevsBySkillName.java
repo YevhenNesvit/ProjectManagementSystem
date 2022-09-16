@@ -23,19 +23,16 @@ public class GetDevsBySkillName implements Command {
     public void execute() {
         String name;
         view.write("Please, enter skill name like Java, C++, C#, JS: ");
-        while (true) {
-            name = view.read();
-            if (name.equals("Java") || name.equals("C++") || name.equals("C#") || name.equals("JS")) {
-                try {
-                    view.write("For skill name " + name + " list of developers is:\n" + developerRepository.developersBySkillName(name));
-                } catch (
-                        SQLException e) {
-                    e.getStackTrace();
-                }
-            } else {
-                view.write("Invalid value. Please enter Java, C++, C# or JS");
+        name = view.read();
+        if (name.equals("Java") || name.equals("C++") || name.equals("C#") || name.equals("JS")) {
+            try {
+                view.write("For skill name " + name + " list of developers is:\n" + developerRepository.developersBySkillName(name));
+            } catch (
+                    SQLException e) {
+                e.getStackTrace();
             }
-            break;
+        } else {
+            view.write("Invalid value. Please enter Java, C++, C# or JS");
         }
     }
 }
