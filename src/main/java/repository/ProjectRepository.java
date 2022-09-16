@@ -35,15 +35,19 @@ public class ProjectRepository {
         }
 
         List<ProjectDao> list = new ArrayList<>();
+        List<Integer> count = new ArrayList<>();
         while (resultSet.next()) {
             ProjectDao project = new ProjectDao(resultSet.getInt("project_id"), resultSet.getString("name"),
                     resultSet.getInt("customer_id"), resultSet.getInt("company_id"),
-                    resultSet.getInt("cost"), resultSet.getDate("creation_date"),
-                    resultSet.getInt("count"));
-
+                    resultSet.getInt("cost"), resultSet.getDate("creation_date"));
+            count.add(resultSet.getInt("count"));
             list.add(project);
         }
+        List<ProjectDto> projectDto = projectConverter.fromList(list);
+        for (int i = 0; i < projectDto.size(); i++) {
+            projectDto.get(i).setNumberOfDevelopers(count.get(i));
+        }
 
-        return projectConverter.fromList(list);
+        return projectDto;
     }
 }

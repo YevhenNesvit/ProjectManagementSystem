@@ -12,7 +12,6 @@ public class ProjectConverter implements Converter<ProjectDto, ProjectDao> {
 
         projectDto.setCreationDate(entity.getCreationDate());
         projectDto.setName(entity.getName());
-        projectDto.setNumberOfDevelopers(entity.getNumberOfDevelopers());
 
         return projectDto;
     }

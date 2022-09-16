@@ -9,16 +9,14 @@ public class ProjectDao {
     private Integer companyId;
     private Integer cost;
     private Date creationDate;
-    private Integer numberOfDevelopers;
 
-    public ProjectDao(Integer projectId, String name, Integer customerId, Integer companyId, Integer cost, Date creationDate, Integer numberOfDevelopers) {
+    public ProjectDao(Integer projectId, String name, Integer customerId, Integer companyId, Integer cost, Date creationDate) {
         this.projectId = projectId;
         this.name = name;
         this.customerId = customerId;
         this.companyId = companyId;
         this.cost = cost;
         this.creationDate = creationDate;
-        this.numberOfDevelopers = numberOfDevelopers;
     }
 
     public ProjectDao() {
@@ -70,13 +68,5 @@ public class ProjectDao {
 
     public void setCreationDate(Date creation_date) {
         this.creationDate = creation_date;
-    }
-
-    public Integer getNumberOfDevelopers() {
-        return numberOfDevelopers;
-    }
-
-    public void setNumberOfDevelopers(Integer numberOfDevelopers) {
-        this.numberOfDevelopers = numberOfDevelopers;
     }
 }

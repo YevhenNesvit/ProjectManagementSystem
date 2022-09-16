@@ -6,7 +6,7 @@ import java.util.Objects;
 public class ProjectDto {
     private Date creationDate;
     private String name;
-    private Integer numberOfDevelopers;
+    private int numberOfDevelopers;
 
     public ProjectDto() {
     }
@@ -27,11 +27,11 @@ public class ProjectDto {
         this.name = name;
     }
 
-    public Integer getNumberOfDevelopers() {
+    public int getNumberOfDevelopers() {
         return numberOfDevelopers;
     }
 
-    public void setNumberOfDevelopers(Integer numberOfDevelopers) {
+    public void setNumberOfDevelopers(int numberOfDevelopers) {
         this.numberOfDevelopers = numberOfDevelopers;
     }
 
