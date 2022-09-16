@@ -5,18 +5,18 @@ import view.View;
 
 import java.sql.SQLException;
 
-public class GetDevelopers implements Command {
-    public static final String GET_DEVELOPERS = "get developers";
+public class GetDevsByProject implements Command {
+    public static final String GET_DEVS_BY_PROJECT = "devs by project";
     private final View view;
     DeveloperRepository developerRepository = new DeveloperRepository();
 
-    public GetDevelopers(View view) {
+    public GetDevsByProject(View view) {
         this.view = view;
     }
 
     @Override
     public boolean canExecute(String input) {
-        return input.equals(GET_DEVELOPERS);
+        return input.equals(GET_DEVS_BY_PROJECT);
     }
 
     @Override
