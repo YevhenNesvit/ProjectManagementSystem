@@ -1,6 +1,6 @@
 package command;
 
-import repository.DeveloperRepository;
+import services.DeveloperService;
 import view.View;
 
 import java.sql.SQLException;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class DeleteDeveloper implements Command{
     public static final String DELETE_DEVELOPER = "delete dev";
     private final View view;
-    DeveloperRepository developerRepository = new DeveloperRepository();
+    DeveloperService developerService = new DeveloperService();
 
     public DeleteDeveloper(View view) {
         this.view = view;
@@ -32,7 +32,7 @@ public class DeleteDeveloper implements Command{
             }
         }
         try {
-            developerRepository.deleteDeveloper(id);
+            developerService.deleteDeveloper(id);
             view.write("Developer with id " + id + " successfully deleted");
         } catch (SQLException e) {
             e.getStackTrace();

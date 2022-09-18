@@ -1,4 +1,4 @@
-package repository;
+package services;
 
 import config.RepositoryConnection;
 

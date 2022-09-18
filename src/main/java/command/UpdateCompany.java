@@ -1,6 +1,6 @@
 package command;
 
-import repository.CompanyRepository;
+import services.CompanyService;
 import view.View;
 
 import java.sql.SQLException;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class UpdateCompany implements Command {
     public static final String UPDATE_COMPANY = "update company";
     private final View view;
-    CompanyRepository companyRepository = new CompanyRepository();
+    CompanyService companyService = new CompanyService();
 
     public UpdateCompany(View view) {
         this.view = view;
@@ -38,7 +38,7 @@ public class UpdateCompany implements Command {
             }
         }
         try {
-            companyRepository.updateCompany(columnName, newValue, id);
+            companyService.updateCompany(columnName, newValue, id);
             view.write("Company with id " + id + " successfully updated");
         } catch (SQLException e) {
             e.getStackTrace();

@@ -1,6 +1,6 @@
 package command;
 
-import repository.ProjectRepository;
+import services.ProjectService;
 import view.View;
 
 import java.sql.SQLException;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class UpdateProject implements Command{
     public static final String UPDATE_PROJECT = "update project";
     private final View view;
-    ProjectRepository projectRepository = new ProjectRepository();
+    ProjectService projectService = new ProjectService();
 
     public UpdateProject(View view) {
         this.view = view;
@@ -38,7 +38,7 @@ public class UpdateProject implements Command{
             }
         }
         try {
-            projectRepository.updateProject(columnName, newValue, id);
+            projectService.updateProject(columnName, newValue, id);
             view.write("Project with id " + id + " successfully updated");
         } catch (SQLException e) {
             e.getStackTrace();

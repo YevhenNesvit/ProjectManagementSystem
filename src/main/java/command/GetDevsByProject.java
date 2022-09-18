@@ -1,6 +1,6 @@
 package command;
 
-import repository.DeveloperRepository;
+import services.DeveloperService;
 import view.View;
 
 import java.sql.SQLException;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class GetDevsByProject implements Command {
     public static final String GET_DEVS_BY_PROJECT = "devs by project";
     private final View view;
-    DeveloperRepository developerRepository = new DeveloperRepository();
+    DeveloperService developerService = new DeveloperService();
 
     public GetDevsByProject(View view) {
         this.view = view;
@@ -32,7 +32,7 @@ public class GetDevsByProject implements Command {
             }
         }
         try {
-            view.write("For project with id " + id + " list of developers is:\n" + developerRepository.developersByProjectId(id));
+            view.write("For project with id " + id + " list of developers is:\n" + developerService.developersByProjectId(id));
         } catch (SQLException e) {
             e.getStackTrace();
         }

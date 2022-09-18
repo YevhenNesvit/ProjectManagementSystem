@@ -1,6 +1,6 @@
 package command;
 
-import repository.ProjectRepository;
+import services.ProjectService;
 import view.View;
 
 import java.sql.SQLException;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class DeleteProject implements Command {
     public static final String DELETE_PROJECT = "delete project";
     private final View view;
-    ProjectRepository projectRepository = new ProjectRepository();
+    ProjectService projectService = new ProjectService();
 
     public DeleteProject(View view) {
         this.view = view;
@@ -32,7 +32,7 @@ public class DeleteProject implements Command {
             }
         }
         try {
-            projectRepository.deleteProject(id);
+            projectService.deleteProject(id);
             view.write("Project with id " + id + " successfully deleted");
         } catch (SQLException e) {
             e.getStackTrace();

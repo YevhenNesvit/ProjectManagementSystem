@@ -1,4 +1,4 @@
-package repository;
+package services;
 
 import config.RepositoryConnection;
 
@@ -6,13 +6,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class CompanyRepository {
+public class SkillRepository {
     RepositoryConnection repositoryConnection = new RepositoryConnection();
 
-    public void updateCompany(String columnName, String newValue, Integer id) throws SQLException {
-        String updateCompany = String.format("UPDATE companies SET %s = '%s' WHERE company_id = ?", columnName, newValue);
+    public void updateSkill(String columnName, String newValue, Integer id) throws SQLException {
+        String updateSkill = String.format("UPDATE skills SET %s = '%s' WHERE skill_id = ?", columnName, newValue);
         try (Connection connection = repositoryConnection.connect().getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(updateCompany);
+            PreparedStatement statement = connection.prepareStatement(updateSkill);
             statement.setInt(1, id);
 
             statement.executeUpdate();

@@ -1,22 +1,22 @@
 package command;
 
-import services.DeveloperService;
+import services.CompanyService;
 import view.View;
 
 import java.sql.SQLException;
 
-public class GetSalary implements Command {
-    public static final String GET_SALARY = "get salary";
+public class DeleteCompany implements Command {
+    public static final String DELETE_COMPANY = "delete company";
     private final View view;
-    DeveloperService developerService = new DeveloperService();
+    CompanyService companyService = new CompanyService();
 
-    public GetSalary(View view) {
+    public DeleteCompany(View view) {
         this.view = view;
     }
 
     @Override
     public boolean canExecute(String input) {
-        return input.equals(GET_SALARY);
+        return input.equals(DELETE_COMPANY);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class GetSalary implements Command {
         int id;
         while (true) {
             try {
-                view.write("Please, enter project id: ");
+                view.write("Please, enter company id to delete: ");
                 id = Integer.parseInt(view.read());
                 break;
             } catch (NumberFormatException e) {
@@ -32,7 +32,8 @@ public class GetSalary implements Command {
             }
         }
         try {
-            view.write("For project with id " + id + " salary is " + developerService.salaryByProjectId(id));
+            companyService.deleteCompany(id);
+            view.write("Company with id " + id + " successfully deleted");
         } catch (SQLException e) {
             e.getStackTrace();
         }

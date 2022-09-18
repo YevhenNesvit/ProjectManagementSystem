@@ -1,6 +1,6 @@
 package command;
 
-import repository.DeveloperRepository;
+import services.DeveloperService;
 import view.View;
 
 import java.sql.SQLException;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class GetDevsBySkillName implements Command {
     public static final String GET_DEVS_BY_SKILL_NAME = "devs by skill name";
     private final View view;
-    DeveloperRepository developerRepository = new DeveloperRepository();
+    DeveloperService developerService = new DeveloperService();
 
     public GetDevsBySkillName(View view) {
         this.view = view;
@@ -27,7 +27,7 @@ public class GetDevsBySkillName implements Command {
             name = view.read();
             if (name.equals("Java") || name.equals("C++") || name.equals("C#") || name.equals("JS")) {
                 try {
-                    view.write("For skill name " + name + " list of developers is:\n" + developerRepository.developersBySkillName(name));
+                    view.write("For skill name " + name + " list of developers is:\n" + developerService.developersBySkillName(name));
                 } catch (
                         SQLException e) {
                     e.getStackTrace();

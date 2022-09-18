@@ -1,6 +1,6 @@
 package command;
 
-import repository.DeveloperRepository;
+import services.DeveloperService;
 import view.View;
 
 import java.sql.SQLException;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class UpdateDeveloper implements Command {
     public static final String UPDATE_DEVELOPER = "update developer";
     private final View view;
-    DeveloperRepository developerRepository = new DeveloperRepository();
+    DeveloperService developerService = new DeveloperService();
 
     public UpdateDeveloper(View view) {
         this.view = view;
@@ -38,7 +38,7 @@ public class UpdateDeveloper implements Command {
             }
         }
         try {
-            developerRepository.updateDeveloper(columnName, newValue, id);
+            developerService.updateDeveloper(columnName, newValue, id);
             view.write("Developer with id " + id + " successfully updated");
         } catch (SQLException e) {
             e.getStackTrace();

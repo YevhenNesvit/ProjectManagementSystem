@@ -1,6 +1,6 @@
 package command;
 
-import repository.CustomerRepository;
+import services.CustomerRepository;
 import view.View;
 
 import java.sql.SQLException;

@@ -1,6 +1,6 @@
 package command;
 
-import repository.ProjectRepository;
+import services.ProjectService;
 import view.View;
 
 import java.sql.SQLException;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class GetProjects implements Command {
     public static final String GET_PROJECTS = "get projects";
     private final View view;
-    ProjectRepository projectRepository = new ProjectRepository();
+    ProjectService projectService = new ProjectService();
 
     public GetProjects(View view) {
         this.view = view;
@@ -22,7 +22,7 @@ public class GetProjects implements Command {
     @Override
     public void execute() {
         try {
-            view.write("List of projects is:\n" + projectRepository.projectsList());
+            view.write("List of projects is:\n" + projectService.projectsList());
         } catch (SQLException e) {
             e.getStackTrace();
         }

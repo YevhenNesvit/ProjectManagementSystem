@@ -1,4 +1,4 @@
-package repository;
+package services;
 
 import config.RepositoryConnection;
 import converter.DeveloperConverter;
@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class DeveloperRepository {
+public class DeveloperService {
     RepositoryConnection repositoryConnection = new RepositoryConnection();
     private static final String SALARY_BY_PROJECT_ID = "SELECT SUM(d.salary) as salary " +
             "FROM developers d JOIN developers_per_projects dpp ON dpp.developer_id = d.developer_id " +

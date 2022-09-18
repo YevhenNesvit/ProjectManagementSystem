@@ -1,4 +1,4 @@
-package repository;
+package services;
 
 import config.RepositoryConnection;
 import converter.ProjectConverter;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectRepository {
+public class ProjectService {
     RepositoryConnection repositoryConnection = new RepositoryConnection();
     private static final String PROJECTS_LIST = "SELECT p.creation_date, p.name, count(d.developer_id) as count, p.project_id," +
             "p.company_id, p.customer_id, p.cost " +

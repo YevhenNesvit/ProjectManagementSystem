@@ -1,6 +1,6 @@
 package command;
 
-import repository.DeveloperRepository;
+import services.DeveloperService;
 import view.View;
 
 import java.sql.SQLException;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class GetDevsBySkillLevel implements Command {
     public static final String GET_DEVS_BY_SKILL_LEVEL = "devs by skill level";
     private final View view;
-    DeveloperRepository developerRepository = new DeveloperRepository();
+    DeveloperService developerService = new DeveloperService();
 
     public GetDevsBySkillLevel(View view) {
         this.view = view;
@@ -27,7 +27,7 @@ public class GetDevsBySkillLevel implements Command {
             level = view.read();
             if (level.equals("Junior") || level.equals("Middle") || level.equals("Senior")) {
                 try {
-                    view.write("For skill level " + level + " list of developers is:\n" + developerRepository.developersBySkillLevel(level));
+                    view.write("For skill level " + level + " list of developers is:\n" + developerService.developersBySkillLevel(level));
                 } catch (
                         SQLException e) {
                     e.getStackTrace();

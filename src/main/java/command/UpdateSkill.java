@@ -1,6 +1,6 @@
 package command;
 
-import repository.SkillRepository;
+import services.SkillRepository;
 import view.View;
 
 import java.sql.SQLException;
