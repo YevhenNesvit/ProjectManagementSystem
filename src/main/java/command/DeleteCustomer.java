@@ -5,32 +5,26 @@ import view.View;
 
 import java.sql.SQLException;
 
-public class UpdateCustomer implements Command {
-    public static final String UPDATE_CUSTOMER = "update customer";
+public class DeleteCustomer implements Command {
+    public static final String DELETE_CUSTOMER = "delete customer";
     private final View view;
     CustomerService customerService = new CustomerService();
 
-    public UpdateCustomer(View view) {
+    public DeleteCustomer(View view) {
         this.view = view;
     }
 
     @Override
     public boolean canExecute(String input) {
-        return input.equals(UPDATE_CUSTOMER);
+        return input.equals(DELETE_CUSTOMER);
     }
 
     @Override
     public void execute() {
-        String columnName;
-        String newValue;
         int id;
         while (true) {
             try {
-                view.write("Please, enter columnName to update: name or country ");
-                columnName = view.read();
-                view.write("Please, enter new value: ");
-                newValue = view.read();
-                view.write("Please, enter customer_id: ");
+                view.write("Please, enter customer id to delete: ");
                 id = Integer.parseInt(view.read());
                 break;
             } catch (NumberFormatException e) {
@@ -38,8 +32,8 @@ public class UpdateCustomer implements Command {
             }
         }
         try {
-            customerService.updateCustomer(columnName, newValue, id);
-            view.write("Customer with id " + id + " successfully updated");
+            customerService.deleteCustomer(id);
+            view.write("Customer with id " + id + " successfully deleted");
         } catch (SQLException e) {
             e.getStackTrace();
         }
