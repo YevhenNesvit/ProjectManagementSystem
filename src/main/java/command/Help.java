@@ -32,6 +32,7 @@ public class Help implements Command {
         view.write(String.format("Enter %s to delete project", DeleteProject.DELETE_PROJECT));
         view.write(String.format("Enter %s to delete company", DeleteCompany.DELETE_COMPANY));
         view.write(String.format("Enter %s to delete customer", DeleteCustomer.DELETE_CUSTOMER));
+        view.write(String.format("Enter %s to delete skill", DeleteSkill.DELETE_SKILL));
         view.write(String.format("Enter %s to exit program", Exit.EXIT));
     }
 }

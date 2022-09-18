@@ -44,6 +44,7 @@ public class Console implements View {
         commands.add(new DeleteProject(view));
         commands.add(new DeleteCompany(view));
         commands.add(new DeleteCustomer(view));
+        commands.add(new DeleteSkill(view));
 
         return commands;
     }
