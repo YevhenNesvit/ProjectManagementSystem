@@ -50,4 +50,16 @@ public class ProjectRepository {
 
         return projectDto;
     }
+
+    public void updateProject(String columnName, String newValue, Integer id) throws SQLException {
+        String updateProject = String.format("UPDATE projects SET %s = '%s' WHERE project_id = ?", columnName, newValue);
+        try (Connection connection = repositoryConnection.connect().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(updateProject);
+            statement.setInt(1, id);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
