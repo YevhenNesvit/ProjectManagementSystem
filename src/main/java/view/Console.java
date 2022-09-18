@@ -35,6 +35,7 @@ public class Console implements View {
         commands.add(new GetDevsBySkillName(view));
         commands.add(new GetDevsBySkillLevel(view));
         commands.add(new GetProjects(view));
+        commands.add(new UpdateDeveloper(view));
 
         return commands;
     }

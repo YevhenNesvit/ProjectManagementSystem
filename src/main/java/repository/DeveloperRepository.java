@@ -127,4 +127,16 @@ public class DeveloperRepository {
 
         return developerConverter.fromList(list);
     }
+
+    public void updateDeveloper(String columnName, String newValue, Integer id) throws SQLException {
+        String updateDeveloper = String.format("UPDATE developers SET %s = '%s' WHERE developer_id = ?", columnName, newValue);
+        try (Connection connection = repositoryConnection.connect().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(updateDeveloper);
+            statement.setInt(1, id);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
