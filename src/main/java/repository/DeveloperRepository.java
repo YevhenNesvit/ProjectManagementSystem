@@ -34,6 +34,7 @@ public class DeveloperRepository {
             "JOIN developers_skills ds ON ds.developer_id = d.developer_id " +
             "JOIN skills s ON s.skill_id = ds.skill_id " +
             "WHERE s.skill_level = ?";
+    private static final String DELETE_DEVELOPER = "DELETE FROM developers where developer_id = ?";
     //    private static final String INSERT_DEVELOPER = "INSERT INTO developers (developer_id, first_name, last_name, gender, " +
 //            "age, company_id, salary) VALUES (?, ?, ?, ?, ?, ?, ?)";
     DeveloperConverter developerConverter = new DeveloperConverter();
@@ -132,6 +133,18 @@ public class DeveloperRepository {
         String updateDeveloper = String.format("UPDATE developers SET %s = '%s' WHERE developer_id = ?", columnName, newValue);
         try (Connection connection = repositoryConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(updateDeveloper);
+            statement.setInt(1, id);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteDeveloper(Integer id) throws SQLException {
+
+        try (Connection connection = repositoryConnection.connect().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(DELETE_DEVELOPER);
             statement.setInt(1, id);
 
             statement.executeUpdate();
