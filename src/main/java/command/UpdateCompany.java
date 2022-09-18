@@ -1,22 +1,22 @@
 package command;
 
-import repository.CustomerRepository;
+import repository.CompanyRepository;
 import view.View;
 
 import java.sql.SQLException;
 
-public class UpdateCustomer implements Command {
-    public static final String UPDATE_CUSTOMER = "update customer";
+public class UpdateCompany implements Command {
+    public static final String UPDATE_COMPANY = "update company";
     private final View view;
-    CustomerRepository customerRepository = new CustomerRepository();
+    CompanyRepository companyRepository = new CompanyRepository();
 
-    public UpdateCustomer(View view) {
+    public UpdateCompany(View view) {
         this.view = view;
     }
 
     @Override
     public boolean canExecute(String input) {
-        return input.equals(UPDATE_CUSTOMER);
+        return input.equals(UPDATE_COMPANY);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class UpdateCustomer implements Command {
                 columnName = view.read();
                 view.write("Please, enter new value: ");
                 newValue = view.read();
-                view.write("Please, enter customer_id: ");
+                view.write("Please, enter company_id: ");
                 id = Integer.parseInt(view.read());
                 break;
             } catch (NumberFormatException e) {
@@ -38,8 +38,8 @@ public class UpdateCustomer implements Command {
             }
         }
         try {
-            customerRepository.updateCustomer(columnName, newValue, id);
-            view.write("Customer with id " + id + " successfully updated");
+            companyRepository.updateCompany(columnName, newValue, id);
+            view.write("Company with id " + id + " successfully updated");
         } catch (SQLException e) {
             e.getStackTrace();
         }

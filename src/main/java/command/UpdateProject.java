@@ -26,7 +26,7 @@ public class UpdateProject implements Command{
         int id;
         while (true) {
             try {
-                view.write("Please, enter columnName to update: name, customer_id, company_id, cost or creation_date: ");
+                view.write("Please, enter columnName to update: name, customer_id, company_id, cost or creation_date ");
                 columnName = view.read();
                 view.write("Please, enter new value: ");
                 newValue = view.read();

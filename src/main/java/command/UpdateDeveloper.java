@@ -26,7 +26,7 @@ public class UpdateDeveloper implements Command {
         int id;
         while (true) {
             try {
-                view.write("Please, enter columnName to update: first_name, last_name, company_id or salary: ");
+                view.write("Please, enter columnName to update: first_name, last_name, company_id or salary ");
                 columnName = view.read();
                 view.write("Please, enter new value: ");
                 newValue = view.read();

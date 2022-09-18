@@ -38,6 +38,7 @@ public class Console implements View {
         commands.add(new UpdateDeveloper(view));
         commands.add(new UpdateProject(view));
         commands.add(new UpdateCustomer(view));
+        commands.add(new UpdateCompany(view));
 
         return commands;
     }

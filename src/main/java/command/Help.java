@@ -26,6 +26,7 @@ public class Help implements Command {
         view.write(String.format("Enter %s to update developer", UpdateDeveloper.UPDATE_DEVELOPER));
         view.write(String.format("Enter %s to update project", UpdateProject.UPDATE_PROJECT));
         view.write(String.format("Enter %s to update customer", UpdateCustomer.UPDATE_CUSTOMER));
+        view.write(String.format("Enter %s to update company", UpdateCompany.UPDATE_COMPANY));
         view.write(String.format("Enter %s to exit program", Exit.EXIT));
     }
 }
