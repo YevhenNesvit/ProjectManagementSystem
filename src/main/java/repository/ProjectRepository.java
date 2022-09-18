@@ -20,6 +20,7 @@ public class ProjectRepository {
             "JOIN developers_per_projects dpp ON dpp.project_id = p.project_id " +
             "JOIN developers d ON d.developer_id = dpp.developer_id " +
             "GROUP BY p.project_id, p.creation_date, p.name";
+    private static final String DELETE_PROJECT = "DELETE FROM projects where project_id = ?";
 //    private static final String INSERT_PROJECT = "INSERT INTO projects (project_id, name, customer_id, company_id, cost, " +
 //            "creation_date) VALUES (?, ?, ?, ?, ?, ?)";
     ProjectConverter projectConverter = new ProjectConverter();
@@ -55,6 +56,18 @@ public class ProjectRepository {
         String updateProject = String.format("UPDATE projects SET %s = '%s' WHERE project_id = ?", columnName, newValue);
         try (Connection connection = repositoryConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(updateProject);
+            statement.setInt(1, id);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteProject(Integer id) throws SQLException {
+
+        try (Connection connection = repositoryConnection.connect().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(DELETE_PROJECT);
             statement.setInt(1, id);
 
             statement.executeUpdate();
