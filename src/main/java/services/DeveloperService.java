@@ -39,6 +39,9 @@ public class DeveloperService {
             "age, company_id, salary) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String SELECT = "SELECT developer_id, first_name, last_name, gender, age, company_id, salary " +
             "FROM developers";
+    private static final String SELECT_BY_ID = "SELECT developer_id, first_name, last_name, gender, age, company_id, salary " +
+            "FROM developers " +
+            "WHERE developer_id = ?";
     DeveloperConverter developerConverter = new DeveloperConverter();
 
     public Integer salaryByProjectId(Integer id) throws SQLException {
@@ -152,6 +155,27 @@ public class DeveloperService {
         }
 
         return developerConverter.fromList(list);
+    }
+
+    public DeveloperDto developerById(Integer id) throws SQLException {
+        ResultSet resultSet = null;
+        try (Connection connection = serviceConnection.connect().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID);
+            statement.setInt(1, id);
+
+            resultSet = statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        DeveloperDao developer = new DeveloperDao();
+        while (resultSet.next()) {
+            developer = new DeveloperDao(resultSet.getInt("developer_id"),
+                    resultSet.getString("first_name"), resultSet.getString("last_name"),
+                    resultSet.getString("gender"), resultSet.getInt("age"),
+                    resultSet.getInt("company_id"), resultSet.getInt("salary"));
+        }
+        return developerConverter.from(developer);
     }
 
     public void updateDeveloper(String columnName, String newValue, Integer id) throws SQLException {
