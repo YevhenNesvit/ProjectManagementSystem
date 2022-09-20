@@ -42,6 +42,9 @@ public class DeveloperService {
     private static final String SELECT_BY_ID = "SELECT developer_id, first_name, last_name, gender, age, company_id, salary " +
             "FROM developers " +
             "WHERE developer_id = ?";
+    private static final String UPDATE_DEVELOPER = "UPDATE developers SET first_name = ?, last_name = ?, gender = ?, age = ?, " +
+            "company_id = ?, salary = ? " +
+            "WHERE developer_id = ?";
     DeveloperConverter developerConverter = new DeveloperConverter();
 
     public Integer salaryByProjectId(Integer id) throws SQLException {
@@ -178,11 +181,17 @@ public class DeveloperService {
         return developerConverter.from(developer);
     }
 
-    public void updateDeveloper(String columnName, String newValue, Integer id) throws SQLException {
-        String updateDeveloper = String.format("UPDATE developers SET %s = '%s' WHERE developer_id = ?", columnName, newValue);
+    public void updateDeveloper(String firstName, String lastName, String gender, Integer age, Integer companyId,
+                                Integer salary, Integer id) throws SQLException {
         try (Connection connection = serviceConnection.connect().getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(updateDeveloper);
-            statement.setInt(1, id);
+            PreparedStatement statement = connection.prepareStatement(UPDATE_DEVELOPER);
+            statement.setString(1, firstName);
+            statement.setString(2, lastName);
+            statement.setString(3, gender);
+            statement.setInt(4, age);
+            statement.setInt(5, companyId);
+            statement.setInt(6, salary);
+            statement.setInt(7, id);
 
             statement.executeUpdate();
         } catch (SQLException e) {
