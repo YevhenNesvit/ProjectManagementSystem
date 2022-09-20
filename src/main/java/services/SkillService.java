@@ -1,13 +1,13 @@
 package services;
 
-import config.RepositoryConnection;
+import config.ServiceConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class SkillService {
-    RepositoryConnection repositoryConnection = new RepositoryConnection();
+    ServiceConnection repositoryConnection = new ServiceConnection();
     private static final String DELETE_SKILL = "DELETE FROM skills where skill_id = ?";
 
     public void updateSkill(String columnName, String newValue, Integer id) throws SQLException {
