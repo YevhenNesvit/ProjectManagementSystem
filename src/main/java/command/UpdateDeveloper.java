@@ -1,6 +1,6 @@
 package command;
 
-import services.CheckDevelopers;
+import utils.CheckDevelopers;
 import services.DeveloperService;
 import view.View;
 
