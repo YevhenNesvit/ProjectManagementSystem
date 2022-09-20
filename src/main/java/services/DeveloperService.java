@@ -37,6 +37,8 @@ public class DeveloperService {
     private static final String DELETE_DEVELOPER = "DELETE FROM developers where developer_id = ?";
     private static final String INSERT_DEVELOPER = "INSERT INTO developers (developer_id, first_name, last_name, gender, " +
             "age, company_id, salary) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static final String SELECT = "SELECT developer_id, first_name, last_name, gender, age, company_id, salary " +
+            "FROM developers";
     DeveloperConverter developerConverter = new DeveloperConverter();
 
     public Integer salaryByProjectId(Integer id) throws SQLException {
@@ -110,6 +112,29 @@ public class DeveloperService {
         try (Connection connection = serviceConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(DEVELOPERS_BY_SKILL_LEVEL);
             statement.setString(1, level);
+
+            resultSet = statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        List<DeveloperDao> list = new ArrayList<>();
+        while (resultSet.next()) {
+            DeveloperDao developer = new DeveloperDao(resultSet.getInt("developer_id"),
+                    resultSet.getString("first_name"), resultSet.getString("last_name"),
+                    resultSet.getString("gender"), resultSet.getInt("age"),
+                    resultSet.getInt("company_id"), resultSet.getInt("salary"));
+
+            list.add(developer);
+        }
+
+        return developerConverter.fromList(list);
+    }
+
+    public List<DeveloperDto> developersList() throws SQLException {
+        ResultSet resultSet = null;
+        try (Connection connection = serviceConnection.connect().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(SELECT);
 
             resultSet = statement.executeQuery();
         } catch (SQLException e) {
