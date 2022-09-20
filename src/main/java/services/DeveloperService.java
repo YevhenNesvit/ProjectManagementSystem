@@ -35,8 +35,8 @@ public class DeveloperService {
             "JOIN skills s ON s.skill_id = ds.skill_id " +
             "WHERE s.skill_level = ?";
     private static final String DELETE_DEVELOPER = "DELETE FROM developers where developer_id = ?";
-    //    private static final String INSERT_DEVELOPER = "INSERT INTO developers (developer_id, first_name, last_name, gender, " +
-//            "age, company_id, salary) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_DEVELOPER = "INSERT INTO developers (developer_id, first_name, last_name, gender, " +
+            "age, company_id, salary) VALUES (?, ?, ?, ?, ?, ?, ?)";
     DeveloperConverter developerConverter = new DeveloperConverter();
 
     public Integer salaryByProjectId(Integer id) throws SQLException {
@@ -146,6 +146,25 @@ public class DeveloperService {
         try (Connection connection = serviceConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(DELETE_DEVELOPER);
             statement.setInt(1, id);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createDeveloper(Integer developerId, String firstName, String lastName, String gender, Integer age,
+                                Integer companyId, Integer salary) throws SQLException {
+
+        try (Connection connection = serviceConnection.connect().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(INSERT_DEVELOPER);
+            statement.setInt(1, developerId);
+            statement.setString(2, firstName);
+            statement.setString(3, lastName);
+            statement.setString(4, gender);
+            statement.setInt(5, age);
+            statement.setInt(6, companyId);
+            statement.setInt(7, salary);
 
             statement.executeUpdate();
         } catch (SQLException e) {
