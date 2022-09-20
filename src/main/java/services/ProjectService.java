@@ -1,6 +1,6 @@
 package services;
 
-import config.RepositoryConnection;
+import config.ServiceConnection;
 import converter.ProjectConverter;
 import model.dao.ProjectDao;
 import model.dto.ProjectDto;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectService {
-    RepositoryConnection repositoryConnection = new RepositoryConnection();
+    ServiceConnection serviceConnection = new ServiceConnection();
     private static final String PROJECTS_LIST = "SELECT p.creation_date, p.name, count(d.developer_id) as count, p.project_id," +
             "p.company_id, p.customer_id, p.cost " +
             "FROM projects p " +
@@ -27,7 +27,7 @@ public class ProjectService {
 
     public List<ProjectDto> projectsList() throws SQLException {
         ResultSet resultSet = null;
-        try (Connection connection = repositoryConnection.connect().getConnection()) {
+        try (Connection connection = serviceConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(PROJECTS_LIST);
 
             resultSet = statement.executeQuery();
@@ -54,7 +54,7 @@ public class ProjectService {
 
     public void updateProject(String columnName, String newValue, Integer id) throws SQLException {
         String updateProject = String.format("UPDATE projects SET %s = '%s' WHERE project_id = ?", columnName, newValue);
-        try (Connection connection = repositoryConnection.connect().getConnection()) {
+        try (Connection connection = serviceConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(updateProject);
             statement.setInt(1, id);
 
@@ -66,7 +66,7 @@ public class ProjectService {
 
     public void deleteProject(Integer id) throws SQLException {
 
-        try (Connection connection = repositoryConnection.connect().getConnection()) {
+        try (Connection connection = serviceConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(DELETE_PROJECT);
             statement.setInt(1, id);
 

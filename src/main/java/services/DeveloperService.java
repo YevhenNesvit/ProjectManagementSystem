@@ -1,6 +1,6 @@
 package services;
 
-import config.RepositoryConnection;
+import config.ServiceConnection;
 import converter.DeveloperConverter;
 import model.dao.DeveloperDao;
 import model.dto.DeveloperDto;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class DeveloperService {
-    RepositoryConnection repositoryConnection = new RepositoryConnection();
+    ServiceConnection serviceConnection = new ServiceConnection();
     private static final String SALARY_BY_PROJECT_ID = "SELECT SUM(d.salary) as salary " +
             "FROM developers d JOIN developers_per_projects dpp ON dpp.developer_id = d.developer_id " +
             "JOIN projects p ON p.project_id = dpp.project_id WHERE p.project_id = ?";
@@ -41,7 +41,7 @@ public class DeveloperService {
 
     public Integer salaryByProjectId(Integer id) throws SQLException {
         ResultSet resultSet = null;
-        try (Connection connection = repositoryConnection.connect().getConnection()) {
+        try (Connection connection = serviceConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(SALARY_BY_PROJECT_ID);
             statement.setInt(1, id);
 
@@ -59,7 +59,7 @@ public class DeveloperService {
 
     public List<DeveloperDto> developersByProjectId(Integer id) throws SQLException {
         ResultSet resultSet = null;
-        try (Connection connection = repositoryConnection.connect().getConnection()) {
+        try (Connection connection = serviceConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(DEVELOPERS_BY_PROJECT_ID);
             statement.setInt(1, id);
 
@@ -83,7 +83,7 @@ public class DeveloperService {
 
     public List<DeveloperDto> developersBySkillName(String name) throws SQLException {
         ResultSet resultSet = null;
-        try (Connection connection = repositoryConnection.connect().getConnection()) {
+        try (Connection connection = serviceConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(DEVELOPERS_BY_SKILL_NAME);
             statement.setString(1, name);
 
@@ -107,7 +107,7 @@ public class DeveloperService {
 
     public List<DeveloperDto> developersBySkillLevel(String level) throws SQLException {
         ResultSet resultSet = null;
-        try (Connection connection = repositoryConnection.connect().getConnection()) {
+        try (Connection connection = serviceConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(DEVELOPERS_BY_SKILL_LEVEL);
             statement.setString(1, level);
 
@@ -131,7 +131,7 @@ public class DeveloperService {
 
     public void updateDeveloper(String columnName, String newValue, Integer id) throws SQLException {
         String updateDeveloper = String.format("UPDATE developers SET %s = '%s' WHERE developer_id = ?", columnName, newValue);
-        try (Connection connection = repositoryConnection.connect().getConnection()) {
+        try (Connection connection = serviceConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(updateDeveloper);
             statement.setInt(1, id);
 
@@ -143,7 +143,7 @@ public class DeveloperService {
 
     public void deleteDeveloper(Integer id) throws SQLException {
 
-        try (Connection connection = repositoryConnection.connect().getConnection()) {
+        try (Connection connection = serviceConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(DELETE_DEVELOPER);
             statement.setInt(1, id);
 
