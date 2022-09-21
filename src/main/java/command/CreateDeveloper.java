@@ -30,7 +30,7 @@ public class CreateDeveloper implements Command {
         int salary;
         while (true) {
             try {
-                view.write("Please, enter developerId of new developer: ");
+                view.write("Please, enter developer_id of new developer: ");
                 id = Integer.parseInt(view.read());
                 view.write("Please, enter firstName of new developer: ");
                 firstName = view.read();
@@ -40,7 +40,7 @@ public class CreateDeveloper implements Command {
                 gender = view.read();
                 view.write("Please, enter age of new developer: ");
                 age = Integer.parseInt(view.read());
-                view.write("Please, enter companyId of new developer: ");
+                view.write("Please, enter company_id of new developer: ");
                 companyId = Integer.parseInt(view.read());
                 view.write("Please, enter salary of new developer: ");
                 salary = Integer.parseInt(view.read());

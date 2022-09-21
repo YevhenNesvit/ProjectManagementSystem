@@ -35,7 +35,7 @@ public class DeveloperService {
             "JOIN skills s ON s.skill_id = ds.skill_id " +
             "WHERE s.skill_level = ?";
     private static final String DELETE_DEVELOPER = "DELETE FROM developers where developer_id = ?";
-    private static final String INSERT_DEVELOPER = "INSERT INTO developers (developer_id, first_name, last_name, gender, " +
+    private static final String INSERT = "INSERT INTO developers (developer_id, first_name, last_name, gender, " +
             "age, company_id, salary) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String SELECT = "SELECT developer_id, first_name, last_name, gender, age, company_id, salary " +
             "FROM developers";
@@ -216,7 +216,7 @@ public class DeveloperService {
                                 Integer companyId, Integer salary) throws SQLException {
 
         try (Connection connection = serviceConnection.connect().getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(INSERT_DEVELOPER);
+            PreparedStatement statement = connection.prepareStatement(INSERT);
             statement.setInt(1, developerId);
             statement.setString(2, firstName);
             statement.setString(3, lastName);

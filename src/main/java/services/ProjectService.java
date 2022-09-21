@@ -5,11 +5,9 @@ import converter.ProjectConverter;
 import model.dao.ProjectDao;
 import model.dto.ProjectDto;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 public class ProjectService {
@@ -21,8 +19,8 @@ public class ProjectService {
             "JOIN developers d ON d.developer_id = dpp.developer_id " +
             "GROUP BY p.project_id, p.creation_date, p.name";
     private static final String DELETE_PROJECT = "DELETE FROM projects where project_id = ?";
-//    private static final String INSERT_PROJECT = "INSERT INTO projects (project_id, name, customer_id, company_id, cost, " +
-//            "creation_date) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String INSERT = "INSERT INTO projects (project_id, name, customer_id, company_id, cost, " +
+            "creation_date) VALUES (?, ?, ?, ?, ?, ?)";
     ProjectConverter projectConverter = new ProjectConverter();
 
     public List<ProjectDto> projectsList() throws SQLException {
@@ -69,6 +67,24 @@ public class ProjectService {
         try (Connection connection = serviceConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(DELETE_PROJECT);
             statement.setInt(1, id);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createProject(Integer projectId, String name, Integer customerId, Integer companyId, Integer cost,
+                                Date creationDate) throws SQLException {
+
+        try (Connection connection = serviceConnection.connect().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(INSERT);
+            statement.setInt(1, projectId);
+            statement.setString(2, name);
+            statement.setInt(3, customerId);
+            statement.setInt(4, companyId);
+            statement.setInt(5, cost);
+            statement.setDate(6, creationDate);
 
             statement.executeUpdate();
         } catch (SQLException e) {
