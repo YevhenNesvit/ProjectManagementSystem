@@ -18,6 +18,7 @@ public class Help implements Command {
     @Override
     public void execute() {
         view.write(String.format("Enter %s to see all commands", Help.HELP));
+        view.write(String.format("Enter %s to create company", CreateCompany.CREATE_COMPANY));
         view.write(String.format("Enter %s to create developer", CreateDeveloper.CREATE_DEVELOPER));
         view.write(String.format("Enter %s to view all companies", GetCompanies.GET_COMPANIES));
         view.write(String.format("Enter %s to view company by id", GetCompanyById.GET_COMPANY_BY_ID));

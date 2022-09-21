@@ -18,6 +18,7 @@ public class CompanyService {
     private static final String SELECT = "SELECT company_id, name, country FROM companies";
     private static final String SELECT_BY_ID = "SELECT company_id, name, country FROM companies " +
             "WHERE company_id = ?";
+    private static final String INSERT_COMPANY = "INSERT INTO companies (company_id, name, country) VALUES (?, ?, ?)";
     CompanyConverter companyConverter = new CompanyConverter();
 
     public List<CompanyDto> companiesList() throws SQLException {
@@ -78,6 +79,20 @@ public class CompanyService {
         try (Connection connection = serviceConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(DELETE_COMPANY);
             statement.setInt(1, id);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createCompany(Integer companyId, String name, String country) throws SQLException {
+
+        try (Connection connection = serviceConnection.connect().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(INSERT_COMPANY);
+            statement.setInt(1, companyId);
+            statement.setString(2, name);
+            statement.setString(3, country);
 
             statement.executeUpdate();
         } catch (SQLException e) {
