@@ -26,7 +26,7 @@ public class CreateCompany implements Command {
         String country;
         while (true) {
             try {
-                view.write("Please, enter companyId of new company: ");
+                view.write("Please, enter company_id of new company: ");
                 id = Integer.parseInt(view.read());
                 view.write("Please, enter name of new company: ");
                 name = view.read();
