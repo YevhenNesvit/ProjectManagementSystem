@@ -1,6 +1,7 @@
 package command;
 
 import services.CustomerService;
+import utils.CheckCustomers;
 import view.View;
 
 import java.sql.SQLException;
@@ -9,6 +10,7 @@ public class UpdateCustomer implements Command {
     public static final String UPDATE_CUSTOMER = "update customer";
     private final View view;
     CustomerService customerService = new CustomerService();
+    CheckCustomers checkCustomers = new CheckCustomers();
 
     public UpdateCustomer(View view) {
         this.view = view;
@@ -21,25 +23,29 @@ public class UpdateCustomer implements Command {
 
     @Override
     public void execute() {
-        String columnName;
-        String newValue;
+        String name;
+        String country;
         int id;
-        while (true) {
-            try {
-                view.write("Please, enter columnName to update: name or country ");
-                columnName = view.read();
-                view.write("Please, enter new value: ");
-                newValue = view.read();
-                view.write("Please, enter customer_id: ");
-                id = Integer.parseInt(view.read());
-                break;
-            } catch (NumberFormatException e) {
-                view.write("Invalid value. Use digits");
-            }
-        }
         try {
-            customerService.updateCustomer(columnName, newValue, id);
-            view.write("Customer with id " + id + " successfully updated");
+            while (true) {
+                try {
+                    view.write("Please, enter name to update: ");
+                    name = view.read();
+                    view.write("Please, enter country to update: ");
+                    country = view.read();
+                    view.write("Please, enter customer_id: ");
+                    id = Integer.parseInt(view.read());
+                    if (checkCustomers.IsCustomerIdExists(id)) {
+                        customerService.updateCustomer(name, country, id);
+                        view.write("Customer with id " + id + " successfully updated");
+                        break;
+                    } else {
+                        System.out.println("Customer id doesn't exists");
+                    }
+                } catch (NumberFormatException e) {
+                    view.write("Invalid value. Use digits");
+                }
+            }
         } catch (SQLException e) {
             e.getStackTrace();
         }

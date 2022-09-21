@@ -18,6 +18,7 @@ public class CustomerService {
     private static final String SELECT = "SELECT customer_id, name, country FROM customers";
     private static final String SELECT_BY_ID = "SELECT customer_id, name, country FROM customers WHERE customer_id = ?";
     private static final String INSERT = "INSERT INTO customers (customer_id, name, country) VALUES (?, ?, ?)";
+    private static final String UPDATE_CUSTOMER = "UPDATE customers SET name = ?, country = ? WHERE customer_id = ?";
     CustomerConverter customerConverter = new CustomerConverter();
 
     public List<CustomerDto> customerList() throws SQLException {
@@ -61,11 +62,12 @@ public class CustomerService {
         return customerConverter.from(customer);
     }
 
-    public void updateCustomer(String columnName, String newValue, Integer id) throws SQLException {
-        String updateCustomer = String.format("UPDATE customers SET %s = '%s' WHERE customer_id = ?", columnName, newValue);
+    public void updateCustomer(String name, String country, Integer id) throws SQLException {
         try (Connection connection = serviceConnection.connect().getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(updateCustomer);
-            statement.setInt(1, id);
+            PreparedStatement statement = connection.prepareStatement(UPDATE_CUSTOMER);
+            statement.setString(1, name);
+            statement.setString(2, country);
+            statement.setInt(3, id);
 
             statement.executeUpdate();
         } catch (SQLException e) {
