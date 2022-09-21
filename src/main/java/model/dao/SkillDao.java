@@ -11,6 +11,10 @@ public class SkillDao {
         this.skillLevel = skillLevel;
     }
 
+    public SkillDao() {
+
+    }
+
     public Integer getSkillId() {
         return skillId;
     }
