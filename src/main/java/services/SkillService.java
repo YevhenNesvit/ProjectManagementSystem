@@ -18,6 +18,7 @@ public class SkillService {
     private static final String SELECT = "SELECT skill_id, name, skill_level FROM skills";
     private static final String SELECT_BY_ID = "SELECT skill_id, name, skill_level FROM skills WHERE skill_id = ?";
     private static final String INSERT = "INSERT INTO skills (skill_id, name, skill_level) VALUES (?, ?, ?)";
+    private static final String UPDATE_SKILL = "UPDATE skills SET name = ?, skill_level = ? WHERE skill_id = ?";
     SkillConverter skillConverter = new SkillConverter();
 
     public List<SkillDto> skillsList() throws SQLException {
@@ -61,11 +62,12 @@ public class SkillService {
         return skillConverter.from(skill);
     }
 
-    public void updateSkill(String columnName, String newValue, Integer id) throws SQLException {
-        String updateSkill = String.format("UPDATE skills SET %s = '%s' WHERE skill_id = ?", columnName, newValue);
+    public void updateDeveloper(String name, String skillLevel, Integer id) throws SQLException {
         try (Connection connection = serviceConnection.connect().getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(updateSkill);
-            statement.setInt(1, id);
+            PreparedStatement statement = connection.prepareStatement(UPDATE_SKILL);
+            statement.setString(1, name);
+            statement.setString(2, skillLevel);
+            statement.setInt(3, id);
 
             statement.executeUpdate();
         } catch (SQLException e) {
