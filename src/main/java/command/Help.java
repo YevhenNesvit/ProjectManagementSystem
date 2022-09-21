@@ -24,8 +24,9 @@ public class Help implements Command {
         view.write(String.format("Enter %s to view all companies", GetCompanies.GET_COMPANIES));
         view.write(String.format("Enter %s to view company by id", GetCompanyById.GET_COMPANY_BY_ID));
         view.write(String.format("Enter %s to view all customers", GetCustomers.GET_CUSTOMERS));
+        view.write(String.format("Enter %s to view customer by id", GetCustomerById.GET_CUSTOMER_BY_ID));
         view.write(String.format("Enter %s to view all developers", GetDevs.GET_DEVS));
-        view.write(String.format("Enter %s to view developer by id", GetDevsById.GET_DEVS_BY_ID));
+        view.write(String.format("Enter %s to view developer by id", GetDevById.GET_DEVS_BY_ID));
         view.write(String.format("Enter %s to view developers by project", GetDevsByProject.GET_DEVS_BY_PROJECT));
         view.write(String.format("Enter %s to view developers by skill name", GetDevsBySkillName.GET_DEVS_BY_SKILL_NAME));
         view.write(String.format("Enter %s to view developers by skill level", GetDevsBySkillLevel.GET_DEVS_BY_SKILL_LEVEL));

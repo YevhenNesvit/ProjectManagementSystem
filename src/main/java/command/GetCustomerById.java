@@ -1,22 +1,22 @@
 package command;
 
-import services.DeveloperService;
+import services.CustomerService;
 import view.View;
 
 import java.sql.SQLException;
 
-public class GetDevsById implements Command {
-    public static final String GET_DEVS_BY_ID = "devs by id";
+public class GetCustomerById implements Command {
+    public static final String GET_CUSTOMER_BY_ID = "customer by id";
     private final View view;
-    DeveloperService developerService = new DeveloperService();
+    CustomerService customerService = new CustomerService();
 
-    public GetDevsById(View view) {
+    public GetCustomerById(View view) {
         this.view = view;
     }
 
     @Override
     public boolean canExecute(String input) {
-        return input.equals(GET_DEVS_BY_ID);
+        return input.equals(GET_CUSTOMER_BY_ID);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class GetDevsById implements Command {
         int id;
         while (true) {
             try {
-                view.write("Please, enter developer id: ");
+                view.write("Please, enter customer id: ");
                 id = Integer.parseInt(view.read());
                 break;
             } catch (NumberFormatException e) {
@@ -32,7 +32,7 @@ public class GetDevsById implements Command {
             }
         }
         try {
-            view.write("For id " + id + " developer is:\n" + developerService.developerById(id));
+            view.write("For id " + id + " customer is:\n" + customerService.customerById(id));
         } catch (SQLException e) {
             e.getStackTrace();
         }

@@ -11,6 +11,10 @@ public class CustomerDao {
         this.country = country;
     }
 
+    public CustomerDao() {
+
+    }
+
     public Integer getCustomerId() {
         return customerId;
     }
