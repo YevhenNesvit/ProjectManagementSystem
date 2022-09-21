@@ -29,14 +29,15 @@ public class Console implements View {
 
         List<Command> commands = new ArrayList<>();
         commands.add(new Help(view));
-        commands.add(new Exit(view));
-        commands.add(new GetSalary(view));
+        commands.add(new GetCompanies(view));
+        commands.add(new GetCompanyById(view));
         commands.add(new GetDevs(view));
         commands.add(new GetDevsById(view));
         commands.add(new GetDevsByProject(view));
         commands.add(new GetDevsBySkillName(view));
         commands.add(new GetDevsBySkillLevel(view));
         commands.add(new GetProjects(view));
+        commands.add(new GetSalary(view));
         commands.add(new UpdateDeveloper(view));
         commands.add(new UpdateProject(view));
         commands.add(new UpdateCustomer(view));
@@ -48,6 +49,7 @@ public class Console implements View {
         commands.add(new DeleteCustomer(view));
         commands.add(new DeleteSkill(view));
         commands.add(new CreateDeveloper(view));
+        commands.add(new Exit(view));
 
         return commands;
     }

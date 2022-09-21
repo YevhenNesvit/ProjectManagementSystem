@@ -5,6 +5,7 @@ import services.DeveloperService;
 import java.sql.SQLException;
 
 public class CheckDevelopers {
+
     DeveloperService developerService = new DeveloperService();
 
     public boolean IsDeveloperIdExists(Integer id) throws SQLException {

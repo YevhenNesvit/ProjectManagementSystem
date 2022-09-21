@@ -1,14 +1,65 @@
 package services;
 
 import config.ServiceConnection;
+import converter.CompanyConverter;
+import model.dao.CompanyDao;
+import model.dto.CompanyDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CompanyService {
     ServiceConnection serviceConnection = new ServiceConnection();
     private static final String DELETE_COMPANY = "DELETE FROM companies where company_id = ?";
+    private static final String SELECT = "SELECT company_id, name, country FROM companies";
+    private static final String SELECT_BY_ID = "SELECT company_id, name, country FROM companies " +
+            "WHERE company_id = ?";
+    CompanyConverter companyConverter = new CompanyConverter();
+
+    public List<CompanyDto> companiesList() throws SQLException {
+        ResultSet resultSet = null;
+        try (Connection connection = serviceConnection.connect().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(SELECT);
+
+            resultSet = statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        List<CompanyDao> list = new ArrayList<>();
+        while (resultSet.next()) {
+            CompanyDao company = new CompanyDao(resultSet.getInt("company_id"),
+                    resultSet.getString("name"), resultSet.getString("country"));
+
+            list.add(company);
+        }
+
+        return companyConverter.fromList(list);
+    }
+
+    public CompanyDto companyById(Integer id) throws SQLException {
+        ResultSet resultSet = null;
+        try (Connection connection = serviceConnection.connect().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID);
+            statement.setInt(1, id);
+
+            resultSet = statement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        CompanyDao company = new CompanyDao();
+        while (resultSet.next()) {
+            company = new CompanyDao(resultSet.getInt("company_id"),
+                    resultSet.getString("name"), resultSet.getString("country"));
+        }
+
+        return companyConverter.from(company);
+    }
 
     public void updateCompany(String columnName, String newValue, Integer id) throws SQLException {
         String updateCompany = String.format("UPDATE companies SET %s = '%s' WHERE company_id = ?", columnName, newValue);

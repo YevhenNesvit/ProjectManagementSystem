@@ -178,6 +178,7 @@ public class DeveloperService {
                     resultSet.getString("gender"), resultSet.getInt("age"),
                     resultSet.getInt("company_id"), resultSet.getInt("salary"));
         }
+
         return developerConverter.from(developer);
     }
 
