@@ -33,6 +33,7 @@ public class Help implements Command {
         view.write(String.format("Enter %s to view developers by skill level", GetDevsBySkillLevel.GET_DEVS_BY_SKILL_LEVEL));
         view.write(String.format("Enter %s to view projects list", GetProjects.GET_PROJECTS));
         view.write(String.format("Enter %s to view salary by project", GetSalary.GET_SALARY));
+        view.write(String.format("Enter %s to view all skills", GetSkills.GET_SKILLS));
         view.write(String.format("Enter %s to update developer", UpdateDeveloper.UPDATE_DEVELOPER));
         view.write(String.format("Enter %s to update project", UpdateProject.UPDATE_PROJECT));
         view.write(String.format("Enter %s to update customer", UpdateCustomer.UPDATE_CUSTOMER));
