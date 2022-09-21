@@ -19,6 +19,7 @@ public class CompanyService {
     private static final String SELECT_BY_ID = "SELECT company_id, name, country FROM companies " +
             "WHERE company_id = ?";
     private static final String INSERT_COMPANY = "INSERT INTO companies (company_id, name, country) VALUES (?, ?, ?)";
+    private static final String UPDATE_COMPANY = "UPDATE companies SET name = ?, country = ? WHERE company_id = ?";
     CompanyConverter companyConverter = new CompanyConverter();
 
     public List<CompanyDto> companiesList() throws SQLException {
@@ -62,11 +63,12 @@ public class CompanyService {
         return companyConverter.from(company);
     }
 
-    public void updateCompany(String columnName, String newValue, Integer id) throws SQLException {
-        String updateCompany = String.format("UPDATE companies SET %s = '%s' WHERE company_id = ?", columnName, newValue);
+    public void updateCompany(String name, String country, Integer id) throws SQLException {
         try (Connection connection = serviceConnection.connect().getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(updateCompany);
-            statement.setInt(1, id);
+            PreparedStatement statement = connection.prepareStatement(UPDATE_COMPANY);
+            statement.setString(1, name);
+            statement.setString(2, country);
+            statement.setInt(3, id);
 
             statement.executeUpdate();
         } catch (SQLException e) {
