@@ -19,6 +19,7 @@ public class Help implements Command {
     public void execute() {
         view.write(String.format("Enter %s to see all commands", Help.HELP));
         view.write(String.format("Enter %s to create company", CreateCompany.CREATE_COMPANY));
+        view.write(String.format("Enter %s to create customer", CreateCustomer.CREATE_CUSTOMER));
         view.write(String.format("Enter %s to create developer", CreateDeveloper.CREATE_DEVELOPER));
         view.write(String.format("Enter %s to create project", CreateProject.CREATE_PROJECT));
         view.write(String.format("Enter %s to view all companies", GetCompanies.GET_COMPANIES));

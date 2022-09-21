@@ -17,7 +17,7 @@ public class CustomerService {
     private static final String DELETE_CUSTOMER = "DELETE FROM customers where customer_id = ?";
     private static final String SELECT = "SELECT customer_id, name, country FROM customers";
     private static final String SELECT_BY_ID = "SELECT customer_id, name, country FROM customers WHERE customer_id = ?";
-    //    private static final String INSERT_CUSTOMER = "INSERT INTO customers (customer_id, name, country) VALUES (?, ?, ?)";
+    private static final String INSERT = "INSERT INTO customers (customer_id, name, country) VALUES (?, ?, ?)";
     CustomerConverter customerConverter = new CustomerConverter();
 
     public List<CustomerDto> customerList() throws SQLException {
@@ -78,6 +78,20 @@ public class CustomerService {
         try (Connection connection = serviceConnection.connect().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(DELETE_CUSTOMER);
             statement.setInt(1, id);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createCustomer(Integer customerId, String name, String country) throws SQLException {
+
+        try (Connection connection = serviceConnection.connect().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(INSERT);
+            statement.setInt(1, customerId);
+            statement.setString(2, name);
+            statement.setString(3, country);
 
             statement.executeUpdate();
         } catch (SQLException e) {
